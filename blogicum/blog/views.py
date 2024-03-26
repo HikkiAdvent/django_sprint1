@@ -44,7 +44,8 @@ posts: list[dict] = [
     },
 ]
 
-posts_dict: dict[dict] = {key: value for key, value in enumerate(posts)}
+posts_dict: dict[dict] = {keys['id']: keys for keys in posts}
+sorted(posts_dict.items())
 
 
 def index(request):
@@ -54,6 +55,7 @@ def index(request):
 def post_detail(request, post_id):
     if post_id not in posts_dict:
         return render(request, 'blog/not_found.html')
+
     return render(request, 'blog/detail.html',
                   context={'post': posts_dict[post_id]})
 

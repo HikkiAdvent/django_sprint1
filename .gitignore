@@ -61,7 +61,8 @@ local_settings.py
 db.sqlite3
 db.sqlite3-journal
 admin.py
-
+test.py
+models.py
 # Flask stuff:
 instance/
 .webassets-cache
@@ -154,3 +155,14 @@ static/
 build_tests/
 yap_testing
 html/img/img/
+blogicum/pages/tests.py
+blogicum/blog/tests.py
+html/css/bootstrap.min.css
+html/img/logo.png
+html/img/fav/android-chrome-192x192.png
+html/img/fav/android-chrome-256x256.png
+html/img/fav/apple-touch-icon.png
+html/img/fav/favicon-16x16.png
+html/img/fav/favicon-32x32.png
+html/img/fav/favicon.ico
+html/img/fav/mstile-150x150.png
