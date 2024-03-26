@@ -1,9 +1,7 @@
 from django.shortcuts import render
 
-# Create your views here.
 
-
-posts = [
+posts: list[dict] = [
     {
         'id': 0,
         'location': 'Остров отчаянья',
@@ -46,17 +44,20 @@ posts = [
     },
 ]
 
+posts_dict: dict[dict] = {key: value for key, value in enumerate(posts)}
+
 
 def index(request):
-    context = {'posts': posts}
-    return render(request, 'blog/index.html', context)
+    return render(request, 'blog/index.html', context={'posts': posts_dict})
 
 
-def post_detail(request, id):
-    context = {'post': posts[id]}
-    return render(request, 'blog/detail.html', context)
+def post_detail(request, post_id):
+    if post_id not in posts_dict:
+        return render(request, 'blog/not_found.html')
+    return render(request, 'blog/detail.html',
+                  context={'post': posts_dict[post_id]})
 
 
 def category_posts(request, category_slug):
-    context = {'posts': posts, 'category': category_slug}
-    return render(request, 'blog/category.html', context)
+    return render(request, 'blog/category.html',
+                  context={'posts': posts_dict, 'category': category_slug})
