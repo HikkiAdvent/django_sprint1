@@ -1,7 +1,9 @@
+from typing import Any
+
+from django.http import Http404
 from django.shortcuts import render
 
-
-posts: list[dict] = [
+posts: list[dict[str, Any]] = [
     {
         'id': 0,
         'location': 'Остров отчаянья',
@@ -44,22 +46,22 @@ posts: list[dict] = [
     },
 ]
 
-posts_dict: dict[dict] = {keys['id']: keys for keys in posts}
-sorted(posts_dict.items())
+posts_dictinory: dict[dict[str, Any]] = {post['id']: post for post in posts}
 
 
 def index(request):
-    return render(request, 'blog/index.html', context={'posts': posts_dict})
+    return render(request, 'blog/index.html',
+                  context={'posts': posts_dictinory})
 
 
 def post_detail(request, post_id):
-    if post_id not in posts_dict:
-        return render(request, 'blog/not_found.html')
-
+    if post_id not in posts_dictinory:
+        raise Http404(f'Пост номер {post_id} не найден!')
     return render(request, 'blog/detail.html',
-                  context={'post': posts_dict[post_id]})
+                  context={'post': posts_dictinory[post_id]})
 
 
 def category_posts(request, category_slug):
     return render(request, 'blog/category.html',
-                  context={'posts': posts_dict, 'category': category_slug})
+                  context={'posts': posts_dictinory,
+                           'category': category_slug})
